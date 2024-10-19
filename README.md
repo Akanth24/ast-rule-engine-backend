@@ -1,85 +1,187 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# AST Rule Engine Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is the backend service for the Rule Engine application. It is built using the Nest.js framework and MongoDB Atlas for storing rule definitions and application metadata.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Installation and Running the Application](#installation)
+- [Project Description](#project-description)
+- [API Endpoints](#API-Endpoints)
+- [Technologies Used](#Technologies-Used)
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Prerequisites
 
-## Project setup
+Before you begin, ensure you have met the following requirements:
+
+- **Node.js**: You need to have Node.js installed on your machine. You can download it from [Node.js official website](https://nodejs.org/).
+- **npm**: npm (Node Package Manager) is usually included with Node.js. You can verify the installation by running:
+  ```bash
+  npm -v
+  ```
+
+## Installation
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/ast-rule-engine-backend.git cd ast-rule-engine-backend
+```
+### 2. Install dependencies
 
 ```bash
-$ npm install
+npm install
 ```
 
-## Compile and run the project
+### 3. Run the application
+To run the backend server in development mode:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm start
 ```
 
-## Run tests
+The backend should now be running on `http://localhost:3000`.
 
-```bash
-# unit tests
-$ npm run test
+## Project Description
 
-# e2e tests
-$ npm run test:e2e
+This project is a simple 3-tier Rule Engine application that allows users to define and evaluate conditional rules based on attributes like age, department, salary, etc. The system uses an Abstract Syntax Tree (AST) to represent these rules. The backend has the APIs and database access functionalities for the following:
 
-# test coverage
-$ npm run test:cov
-```
+- Create individual rules.
+- Combine multiple rules into a complex rule.
+- Evaluate a rule against a dataset input given by the user.
 
-## Resources
+## API-Endpoints
 
-Check out a few resources that may come in handy when working with NestJS:
+### 1. Create Rule
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Creates an AST (Abstract Syntax Tree) from the provided rule string and stores the rule in the database.
 
-## Support
+- URL: /rule/create
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- Method: POST
 
-## Stay in touch
+- Request Body:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  ```json
 
-## License
+  {
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+    "rule": "(age > 30 AND department = 'Sales') OR (salary > 50000)"
+
+  }
+
+  ```
+
+### 2. Combine Rules
+
+Combines multiple rules into a single AST using the specified logical operator.
+
+- URL: /rule/combine
+
+- Method: POST
+
+- Request Body:
+
+  ```json
+
+  {
+
+    "rules": [
+
+      "(age > 30 AND department = 'Sales')",
+
+      "(salary > 50000 OR experience > 5)"
+
+    ],
+
+    "operator": "AND"
+
+  }
+
+  ```
+
+
+### 3. Evaluate Rule
+
+Evaluates the given AST with the provided data.
+
+- URL: /rule/evaluate
+
+- Method: POST
+
+- Request Body:
+
+  ```json
+
+  {
+
+    "ast": {
+
+      "type": "operator",
+
+      "left": { ... },
+
+      "right": { ... }
+
+    },
+
+    "data": {
+
+      "age": 35,
+
+      "department": "Sales",
+
+      "salary": 60000,
+
+      "experience": 3
+
+    }
+
+  }
+
+  ```
+
+### 4. Get Existing Rules
+
+Fetches all stored rules from the database.
+
+- URL: /rule/existing
+
+- Method: GET
+
+
+### 5. Update Rule
+
+Updates an existing rule based on the provided ID and new rule string.
+
+- URL: /rule/:id
+
+- Method: PUT
+
+- Request Body:
+
+  ```json
+
+  {
+
+    "rule": "(age <= 40 AND department = 'HR')"
+
+  }
+
+  ```
+
+
+### 6. Delete Rule
+
+Deletes a rule from the database based on the provided ID.
+
+- URL: /rule/:id
+
+- Method: DELETE
+
+
+
+## Technologies-Used
+* **Nest.js** - A progressive Node.js framework for building efficient and scalable server-side applications.
+* **MongoDB Atlas** - Cloud-based NoSQL database to store rule definitions and metadata.
+* **Mongoose** - ORM for MongoDB, used for schema definitions and data validation.
