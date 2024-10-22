@@ -25,15 +25,21 @@ Before you begin, ensure you have met the following requirements:
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/ast-rule-engine-backend.git cd ast-rule-engine-backend
+git clone https://github.com/Akanth24/ast-rule-engine-backend.git
+```
+```bash
+cd ast-rule-engine-backend
 ```
 ### 2. Install dependencies
 
 ```bash
 npm install
 ```
+### 3. Configure Keys
 
-### 3. Run the application
+Configure MongoDB Atlas connection in the ``` .env ``` file
+
+### 4. Run the application
 To run the backend server in development mode:
 
 ```bash
