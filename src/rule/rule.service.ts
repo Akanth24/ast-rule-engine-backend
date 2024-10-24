@@ -139,7 +139,7 @@ export class RuleService {
       case '!=':
         return leftValue != rightValue;
       case '=':
-        return leftValue === rightValue;
+        return leftValue == rightValue;
       default:
         throw new Error(`Unknown operator: ${operator.value}`);
     }
